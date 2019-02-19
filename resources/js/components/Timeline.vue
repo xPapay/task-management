@@ -57,6 +57,9 @@ export default {
       button.dataset.itemId = timelineItem.id;
       button.innerHTML = timelineItem.buttons[buttonName].label;
       button.onclick = timelineItem.buttons[buttonName].handler;
+      button.addEventListener('touchstart', function() {
+        timelineItem.buttons[buttonName].handler({currentTarget: this});
+      });
       element.insertAdjacentElement('afterend', button);
       return element;
     }
@@ -89,6 +92,12 @@ export default {
 
     options.template = (item, element) => {
       element.innerHTML = item.content;
+      element.addEventListener('touchstart', e => {
+        const href = e.targetTouches[0].target.href;
+        if (href) {
+          window.location = href;
+        }
+      });
 
       if (item.buttons && Object.keys(item.buttons).length > 0) {
         Object.keys(item.buttons).reduce((element, buttonName) => this.buildButtons(element, buttonName, item), element);
