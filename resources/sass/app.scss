@@ -45,11 +45,15 @@ body {
   margin: 0 auto;
 }
 
-.icon-2x {
+.font-thinner, .font-lighter {
+  font-weight: lighter;
+}
+
+.icon-2x, .fs-2x {
   font-size: 2rem;
 }
 
-.icon-3x {
+.icon-3x, .fs-3x {
   font-size: 3rem;
 }
 
@@ -288,6 +292,10 @@ ul {
 
 .gray {
   color: $gray;
+}
+
+.carbon {
+  color: #333;
 }
 
 .block {
