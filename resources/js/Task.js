@@ -23,7 +23,8 @@ class Task {
             }
 
             if (['start_date', 'due_date'].includes(property) && !(data[property] instanceof Date)) {
-                this[`_${property}`] = new Date(data[property]);
+                const dateString = data[property].replace(/\s/, 'T');
+                this[`_${property}`] = new Date(dateString);
                 return;
             }
 
