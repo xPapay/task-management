@@ -14,8 +14,8 @@ export default {
     data() {
         return {
             editing: false,
-            start_date: this.task.start_date,
-            due_date: this.task.due_date,
+            start_date: this.formatDate(this.task.start_date),
+            due_date: this.formatDate(this.task.due_date),
             title: this.task.title,
             description: this.task.description,
             assignees: this.toObject(this.task.assignees),
@@ -37,6 +37,10 @@ export default {
             this.due_date = item.end
         },
 
+        formatDate(dateString) {
+            return new Date(dateString.replace(/\s/, 'T'));
+        },
+
         assign(user) {
             this.assignees = {...this.assignees, [user.id]: user};
         },
@@ -55,11 +59,11 @@ export default {
             let formData = new FormData();
             formData.append('title', this.title);
             formData.append('description', this.description);
-            if ( (new Date(this.task.start_date)).getTime() !=  (new Date(this.start_date)).getTime()) {
+            if ( (new Date(this.task.start_date)).getTime() !=  this.start_date.getTime()) {
                 formData.append('start_date', App.formatDate(this.start_date));
             }
 
-            if ( (new Date(this.task.due_date)).getTime() !=  (new Date(this.due_date)).getTime()) {
+            if ( (new Date(this.task.due_date)).getTime() !=  this.due_date.getTime()) {
                 formData.append('due_date', App.formatDate(this.due_date));
             }
 
@@ -85,8 +89,8 @@ export default {
         },
 
         revertChanges() {
-            this.start_date = this.task.start_date,
-            this.due_date = this.task.due_date,
+            this.start_date = this.formatDate(this.task.start_date),
+            this.due_date = this.formatDate(this.task.due_date),
             this.title = this.task.title,
             this.description = this.task.description,
             this.assignees = this.toObject(this.task.assignees),
