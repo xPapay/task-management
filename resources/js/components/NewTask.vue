@@ -12,24 +12,10 @@
         <textarea name="description" class="input m-bottom-s col-s-2 no-resize" v-model="description" placeholder="Description"></textarea>
         <div class="red italic m-bottom-s" v-if="errors.has('description')" v-text="errors.get('description')"></div>      
         <div class="col-s-2 col-l-1">
-          <v-date-picker
-            mode="range" 
-            v-model="dateRange" 
-            show-caps
+          <calendar
+            v-model="dateRange"
             @input="errors.clear('start_date') || errors.clear('due_date')"
-          >
-          <div class="input-group m-bottom-s" slot-scope="{inputValue, updateValue}">
-            <i class="icon-calendar icon-2x"></i>
-            <input
-              name="start_date"
-              class="input"
-              type="text"
-              :value="inputValue"
-              placeholder="YYYY/MM/DD - YYYY/MM/DD"
-              @change="updateValue($event.target.value)"
-            >
-          </div>
-          </v-date-picker>
+          ></calendar>
           <div class="red italic m-bottom-s" v-text="errors.get('start_date')"></div>
           <div class="red italic m-bottom-s" v-text="errors.get('due_date')"></div>
         </div>
@@ -81,17 +67,15 @@
 import Errors from '../Errors';
 import FixedButton from './FixedButton.vue';
 import Attachment from './Attachment.vue';
+import Calendar from './Calendar.vue';
 export default {
-  components: { FixedButton, Attachment },
+  components: { FixedButton, Attachment, Calendar },
   data() {
     return {
       isOpen: false,
       title: "",
       description: "",
-      dateRange: {
-        start: null,
-        end: null
-      },
+      dateRange: null,
       attachments: [],
       assignees: {},
       errors: new Errors()

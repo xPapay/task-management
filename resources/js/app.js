@@ -47,7 +47,8 @@ Vue.use(VCalendar, {
         input: ['YYYY/MM/DD', 'YYYY-MM-DD'],
         dayPopover: 'L',
         data: ['YYYY/MM/DD', 'YYYY-MM-DD']
-      }
+    },
+    popoverVisibility: 'focus',
 });
 
 /**
