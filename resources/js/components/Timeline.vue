@@ -92,12 +92,22 @@ export default {
 
     options.template = (item, element) => {
       element.innerHTML = item.content;
-      element.addEventListener('touchstart', e => {
-        const href = e.targetTouches[0].target.href;
-        if (href) {
-          window.location = href;
-        }
-      });
+      ((touchTreshold = 250) => {
+        let touchStart, target;
+
+        element.addEventListener('touchstart', e => {
+          touchStart = new Date();
+          target = e.targetTouches[0].target;
+        });
+
+        element.addEventListener('touchend', e => {
+          const diff = new Date() - touchStart;
+          if ((diff < touchTreshold) && target.href) {
+            window.location = target.href;
+          }
+        })
+      })()
+
 
       if (item.buttons && Object.keys(item.buttons).length > 0) {
         Object.keys(item.buttons).reduce((element, buttonName) => this.buildButtons(element, buttonName, item), element);

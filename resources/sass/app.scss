@@ -258,6 +258,10 @@ ul {
   margin-right: 0.75rem;
 }
 
+.w-100 {
+  width: 100%;
+}
+
 .red {
   color: $red;
 }
@@ -383,6 +387,7 @@ ul {
   right: 10px;
   bottom: 10px;
   padding: 15px;
+  color: white;
 }
 
 // Comment form
@@ -407,6 +412,7 @@ ul {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   text-transform: uppercase;
+  background-color: $gray;
 }
 
 // Comment
@@ -443,6 +449,15 @@ ul {
 
 // login form
 
+.login-form {
+  width: 100%;
+}
+
+.login-form__input {
+  display: block;
+  width: 100%;
+}
+
 .card {
   background: $gray;
   display: flex;
@@ -469,6 +484,10 @@ ul {
   flex-shrink: 0;
   align-self: stretch;
   min-width: 50px;
+}
+
+.card__button--mw {
+  max-width: 100px;
 }
 
 // Contextual menu
@@ -542,14 +561,11 @@ ul {
   border-radius: 18px;
 }
 
-.edit-name > * {
-  vertical-align: middle;
-}
-
 .edit-name__input {
   border: none;
   margin-left: 10px;
   font-size: 1.5rem;
+  width: 100%;
 }
 
 .edit-name__button {
@@ -657,19 +673,18 @@ ul {
 .add-task {
   background: white;
   position: fixed;
-  bottom: 0;
+  top: 100%;
   left: 10px;
   right: 10px;
   z-index: 106;
   padding: 10px;
   border-top-left-radius: 18px;
   border-top-right-radius: 18px;
-  transform: translateY(100%);
   transition: all 0.3s ease-in;
 }
 
 .add-task--open {
-  transform: translateY(0);
+  transform: translateY(-100%);
 }
 
 .overlay {

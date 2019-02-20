@@ -29,10 +29,12 @@
         </div>
         
         <div class="m-left-s">
-            <div class="edit-name" v-if="editName">
+            <div class="edit-name flex" v-if="editName">
                 <input class="edit-name__input" type="text" v-model="newName">
-                <button @click="updateName" class="edit-name__button"><i class="far fa-check-circle fa-3x green"></i></button>
-                <button @click="cancelRenaming" class="edit-name__button"><i class="far fa-times-circle fa-3x red"></i></button>
+                <div class="f-no-shrink">
+                    <button @click="updateName" class="edit-name__button"><i class="far fa-check-circle fa-3x green"></i></button>
+                    <button @click="cancelRenaming" class="edit-name__button"><i class="far fa-times-circle fa-3x red"></i></button>
+                </div>
             </div>
             <div class="m-bottom-s font-bigger" v-else>
                 {{ name }}

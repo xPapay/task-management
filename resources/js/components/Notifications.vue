@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="notificationsList.count > 0">
         <notification
             v-for="(notification, index) in notificationsList"
             :key="index" 
@@ -9,6 +9,9 @@
         >
         </notification>
         <button class="button pointer" @click="markAllAsRead" v-if="!isAllRead">Mark all as read</button>
+    </div>
+    <div v-else>
+        You have no notifications
     </div>
 </template>
 
