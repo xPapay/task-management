@@ -4,12 +4,12 @@
     <form 
         method="POST" 
         action="{{ route('login') }}" 
-        class="card max-w-s absolute-center"
+        class="card max-w-s absolute-center login-form"
     >
         @csrf
-        <div class="card__content">
-            <input class="input m-bottom-xs" type="email" name="email" value="{{ old('email') }}" autofocus placeholder="e-mail" required>
-            <input class="input m-bottom-s" type="password" name="password" placeholder="password" required>
+        <div class="card__content w-100">
+            <input class="input login-form__input m-bottom-xs" type="email" name="email" value="{{ old('email') }}" autofocus placeholder="e-mail" required>
+            <input class="input login-form__input m-bottom-s" type="password" name="password" placeholder="password" required>
             @if($errors->any())
             <ul>
                 @foreach($errors->all() as $error)

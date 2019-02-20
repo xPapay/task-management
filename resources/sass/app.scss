@@ -258,6 +258,10 @@ ul {
   margin-right: 0.75rem;
 }
 
+.w-100 {
+  width: 100%;
+}
+
 .red {
   color: $red;
 }
@@ -443,6 +447,15 @@ ul {
 }
 
 // login form
+
+.login-form {
+  width: 100%;
+}
+
+.login-form__input {
+  display: block;
+  width: 100%;
+}
 
 .card {
   background: $gray;
