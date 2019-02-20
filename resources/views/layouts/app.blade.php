@@ -73,7 +73,7 @@
             </navigation>
         </div>
         @yield('content')
-        <flash message="{{ session('flash') }}"></flash>
+        <flash message="{{ session('flash') ? : session('status') }}"></flash>
     </div>
 </body>
 </html>
