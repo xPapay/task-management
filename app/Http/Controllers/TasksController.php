@@ -135,11 +135,11 @@ class TasksController extends Controller
             'assignees' => 'sometimes|required|exists:users,id'
         ]);
         
-        $attachmentsToRemove = $task->attachments()->whereNotIn('id', $request->get('old_attachments', []))->get();
+        $task->attachments()
+            ->whereNotIn('id', $request->get('old_attachments', []))
+            ->get()
+            ->each->delete();
 
-        // $attachmentsToRemove = $task->attachments->pluck('id')->diff($request->oldAttachments);
-
-        $this->removeAttachments($attachmentsToRemove);
         $task->update($request->all());
 
         if ($request->has('start_date')) {
@@ -172,24 +172,13 @@ class TasksController extends Controller
     public function destroy(Task $task)
     {
         $this->authorize('task.delete', $task);
-        $attachments = $task->attachments;
+        $task->attachments->each->delete();
         $task->delete();
-        $this->removeAttachments($attachments);
         session()->flash('flash', 'Task was delted');
         if (request()->wantsJson()) {
             return 'Deleted';
         }
 
         return redirect('/');
-    }
-
-    protected function removeAttachments($attachments) 
-    {
-        $filePaths = $attachments->pluck('path');
-        Attachment::destroy($attachments->pluck('id'));
-        
-        foreach($filePaths as $path) {
-            Storage::disk('public')->delete($path);
-        }
     }
 }
