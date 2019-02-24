@@ -99,4 +99,9 @@ return [
         ],
     ],
 
+    'demo' => [
+        'login' => env('DEMO_LOGIN', 'admin@test.com'),
+        'password' => env('DEMO_PASSWORD', 'admin')
+    ]
+
 ];

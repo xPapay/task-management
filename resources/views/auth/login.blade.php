@@ -18,6 +18,11 @@
     
             </ul>
             @endif
+            @if (env('APP_ENV') === 'demo')
+            <div class="m-bottom-s">
+                Login: {{ config('auth.demo.login') }} | Password: {{ config('auth.demo.password') }}
+            </div>
+            @endif
             @if (Route::has('password.request'))
                 <a class="block" href="{{ route('password.request') }}">
                     {{ __('Forgot Your Password?') }}
