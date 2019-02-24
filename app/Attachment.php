@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class Attachment extends Model
 {
@@ -21,5 +22,11 @@ class Attachment extends Model
     public function getPublicPathAttribute()
     {
         return asset("/storage/{$this->path}");
+    }
+
+    public function delete()
+    {
+        Storage::disk('public')->delete($this->path);
+        parent::delete();
     }
 }

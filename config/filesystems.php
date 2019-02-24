@@ -42,6 +42,10 @@ return [
     */
 
     'disks' => [
+        'databases' => [
+            'driver' => 'local',
+            'root' => database_path()
+        ],
 
         'local' => [
             'driver' => 'local',
