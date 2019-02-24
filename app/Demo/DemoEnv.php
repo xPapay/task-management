@@ -57,8 +57,8 @@ class DemoEnv
 
         factory(User::class)->create([
             'name' => 'John Doe',
-            'email' => env('DEMO_LOGIN', 'admin@test.com'), 
-            'password' => env('DEMO_PASSWORD', bcrypt('admin'))
+            'email' => Config::get('auth.demo.login'), 
+            'password' => bcrypt(Config::get('auth.demo.login'))
         ]);
     }
 
