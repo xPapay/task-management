@@ -48,6 +48,14 @@ class User extends Authenticatable
 
     public function getPicturePathAttribute()
     {
-        return asset($this->picture ? "storage/{$this->picture}": "https://s3.amazonaws.com/uifaces/faces/twitter/kerem/128.jpg");
+        if ($this->isUrlPath($this->picture)) {
+            return $this->picture;
+        }
+        return asset($this->picture ? "storage/{$this->picture}" : "https://s3.amazonaws.com/uifaces/faces/twitter/kerem/128.jpg");
+    }
+
+    private function isUrlPath($path)
+    {
+        return preg_match('/^http/', $path) == true;
     }
 }

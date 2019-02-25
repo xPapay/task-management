@@ -10,6 +10,7 @@ use App\Events\UsersDeassignedFromTask;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\UserAssignedOnTask;
 use App\Notifications\UserDeassignedFromTask;
+use Illuminate\Database\Eloquent\Collection;
 
 class Task extends Model
 {
@@ -20,7 +21,7 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'creator_id');
     }
-    
+
     public function assign($assignees)
     {
         $this->assignees()->attach($assignees);
@@ -63,7 +64,7 @@ class Task extends Model
     public function scopeFilter($query, UrlQueryFilter $filter)
     {
         return $filter->applyOn($query);
-    }   
+    }
 
     public function comments()
     {
@@ -72,7 +73,7 @@ class Task extends Model
 
     public function attachments()
     {
-        return $this->morphMany(Attachment::class, 'attachable');        
+        return $this->morphMany(Attachment::class, 'attachable');
     }
 
     public function setDueDateAttribute($value)

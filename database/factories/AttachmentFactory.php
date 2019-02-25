@@ -6,7 +6,7 @@ use App\Comment;
 
 $factory->define(App\Attachment::class, function (Faker $faker) {
     return [
-        'path' => '/path/to/a/file',
+        'path' => $faker->imageurl(500, 500, false, true),
         'name' => 'filename.pdf',
         'attachable_id' => factory(Task::class)->create()->id,
         'attachable_type' => 'App\Task'

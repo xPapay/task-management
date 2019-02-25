@@ -55,6 +55,7 @@ class DemoEnv
     {
         $this->setDemoConnection($database);
 
+        // TODO: replace with seeder
         factory(User::class)->create([
             'name' => 'John Doe',
             'email' => Config::get('auth.demo.login'),
