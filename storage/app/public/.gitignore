@@ -1,2 +1,5 @@
-*
+/*
+!attachments/
+attachments/*
+!attachments/demo/
 !.gitignore

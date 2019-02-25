@@ -56,11 +56,7 @@ class DemoEnv
         $this->setDemoConnection($database);
 
         // TODO: replace with seeder
-        factory(User::class)->create([
-            'name' => 'John Doe',
-            'email' => Config::get('auth.demo.login'),
-            'password' => bcrypt(Config::get('auth.demo.password'))
-        ]);
+        Artisan::queue('db:seed', ['--class' => 'DemoDatabaseSeeder']);
     }
 
     protected function setDemoConnection($connection)

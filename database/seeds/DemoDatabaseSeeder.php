@@ -33,7 +33,6 @@ class DemoDatabaseSeeder extends Seeder
         ])->for(Collection::wrap([$demoUser, $users[0]]));
 
         factory(Attachment::class)->create([
-            'name' => 'example_filename',
             'attachable_id' => $task->id
         ]);
 
