@@ -11,57 +11,61 @@ use Illuminate\Support\Facades\Artisan;
 
 class DemoEnv
 {
+    private $database;
+
     public function __construct()
     {
-        $database = $this->prepareDemoDbIfNotExists();
-        $this->setDemoConnection($database);
+        $this->database = $this->getDbPath();
+        $this->createDbIfNotExists();
+        $this->setDemoConnection();
     }
 
-    protected function prepareDemoDbIfNotExists()
+    private function createDbIfNotExists()
     {
-        if (! $this->databaseExists($database = $this->getDbPath())) {
-            $this->createDemoDb($database, $lifetime = 5 * 24 * 60);
-            $this->migrate($database);
-            $this->seed($database);
+        if ($this->databaseExists()) {
+            return;
         }
-        return $database;
+
+        $this->createDemoDbValidFor($lifetime = 5 * 24 * 60);
+        $this->migrate();
+        $this->seed();
     }
 
-    protected function databaseExists($database)
-    {
-        return file_exists($database);
-    }
-
-    protected function getDbPath()
+    private function getDbPath()
     {
         return Cookie::get('db_connection') ? : database_path("demo/" . Str::uuid() . ".sqlite");
     }
 
-    protected function createDemoDb($path, $lifetime)
+    private function databaseExists()
     {
-        touch($path);
-        Cookie::queue(Cookie::make('db_connection', $path, $lifetime));
+        return file_exists($this->database);
     }
 
-    protected function migrate($database)
+
+    private function createDemoDbValidFor($lifetime)
     {
-        $this->setDemoConnection($database);
+        touch($this->database);
+        Cookie::queue(Cookie::make('db_connection', $this->database, $lifetime));
+    }
+
+    private function migrate()
+    {
+        $this->setDemoConnection();
 
         Artisan::queue('migrate', ['--force' => true]);
     }
 
-    protected function seed($database)
+    private function seed()
     {
-        $this->setDemoConnection($database);
+        $this->setDemoConnection();
 
-        // TODO: replace with seeder
         Artisan::queue('db:seed', ['--class' => 'DemoDatabaseSeeder']);
     }
 
-    protected function setDemoConnection($connection)
+    private function setDemoConnection()
     {
         DB::purge();
         Config::set('database.default', 'sqlite');
-        Config::set('database.connections.sqlite.database', $connection);
+        Config::set('database.connections.sqlite.database', $this->database);
     }
 }
