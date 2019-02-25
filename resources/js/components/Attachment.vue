@@ -11,7 +11,7 @@
             </button>
         </div>
     </div>
-    <div class="m-top-s">{{ file && file.name }}</div>
+    <div class="m-top-s text-center">{{ file && file.name }}</div>
 </div>
 </template>
 

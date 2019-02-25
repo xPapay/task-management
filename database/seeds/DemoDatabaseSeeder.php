@@ -42,7 +42,6 @@ class DemoDatabaseSeeder extends Seeder
         ]);
 
         factory(Attachment::class)->states('comment')->create([
-            'name' => 'example_filename',
             'attachable_id' => $comment->id
         ]);
 

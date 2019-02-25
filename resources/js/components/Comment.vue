@@ -11,7 +11,7 @@
         <div>
             {{ this.body }}
         </div>
-        <div class="inline-list">
+        <div class="inline-list m-top-s">
             <attachment v-for="(attachment, index) in attachments" :key="index" :source="attachment" :deletable="false"></attachment>
         </div>
         <div class="comment__timestamp">{{ this.date }}</div>
