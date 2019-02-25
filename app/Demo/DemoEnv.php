@@ -13,19 +13,18 @@ class DemoEnv
 {
     public function __construct()
     {
-        $this->prepareDemoDbIfNotExists();
-        $this->setDemoConnection(Cookie::get('db_connection'));
+        $database = $this->prepareDemoDbIfNotExists();
+        $this->setDemoConnection($database);
     }
 
     protected function prepareDemoDbIfNotExists()
     {
-        if ($this->databaseExists($database = $this->getDbPath())) {
-            return;
+        if (! $this->databaseExists($database = $this->getDbPath())) {
+            $this->createDemoDb($database, $lifetime = 5 * 24 * 60);
+            $this->migrate($database);
+            $this->seed($database);
         }
-
-        $this->createDemoDb($database, $lifetime = 5 * 24 * 60);
-        $this->migrate($database);
-        $this->seed($database);
+        return $database;
     }
 
     protected function databaseExists($database)
