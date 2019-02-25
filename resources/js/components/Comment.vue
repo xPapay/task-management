@@ -2,7 +2,7 @@
 <div class="comment">
     <div class="comment__author">
         <img 
-        src="https://s3.amazonaws.com/uifaces/faces/twitter/kerem/128.jpg" 
+        :src="author.picture_path" 
         alt="assignee" class="photo-circle photo-medium m-bottom-xs"
         > 
         <div>{{ this.author.name }}</div>
