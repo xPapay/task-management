@@ -62,7 +62,9 @@ class DeleteOldDemoDatabases
 
     protected function removeAttachments()
     {
-        Attachment::all()->each->delete();
+        Attachment::all()->filter(function($attachment) {
+            return strpos($attachment->path, "attachments/demo/") === false;
+        })->each->delete();
     }
 
     protected function removeProfilePictures()
